@@ -8,9 +8,9 @@ import { cn } from '@/lib/utils';
 
 const DEFAULT_INDICATORS = [
   { name: 'Commits', max: 30000 },
-  { name: 'PRs', max: 2500 },
+  { name: 'Pull Requests', max: 2500 },
   { name: 'Issues', max: 1000 },
-  { name: 'Reviews', max: 2500 },
+  { name: 'Code Reviews', max: 2500 },
   { name: 'Stars', max: 20000 },
   { name: 'Streak', max: 365 },
 ] as const;

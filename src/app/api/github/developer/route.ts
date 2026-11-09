@@ -100,6 +100,15 @@ export async function GET(request: Request) {
       if (prsRes.ok) totalPRs = (await prsRes.json()).total_count || 0;
     } catch (e) {}
 
+    let totalReviews = 0;
+    try {
+      const query = encodeURIComponent(`type:pr reviewed-by:${data.login}`);
+      const reviewsRes = await fetch(`https://api.github.com/search/issues?q=${query}&per_page=1`, fetchOptions);
+      if (reviewsRes.ok) totalReviews = (await reviewsRes.json()).total_count ?? 0;
+    } catch {
+      // Leave reviews at zero when GitHub search is unavailable.
+    }
+
     let totalIssues = 0;
     try {
       const issuesRes = await fetch(`https://api.github.com/search/issues?q=type:issue+author:${username}`, fetchOptions);
@@ -258,6 +267,7 @@ export async function GET(request: Request) {
       stats: {
         totalCommits,
         totalPRs,
+        totalReviews,
         totalIssues,
         totalStars,
         followers: data.followers || 0,

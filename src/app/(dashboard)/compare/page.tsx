@@ -8,7 +8,7 @@ import { useCurrentUser } from "@/hooks/api/use-auth";
 import { 
   Swords, Search, Trophy, CalendarDays, MapPin, Calendar, GitBranch, Star, Users, Flame,
   TrendingUp, GitCommitHorizontal, GitPullRequest, CircleDot, CodeXml, Coffee, Plus, Minus,
-  Loader2, X, Tent, Crown, AlertCircle, Moon, Sun, Sunset, Code2, Key, RefreshCw
+  Loader2, X, Tent, Crown, AlertCircle, Moon, Sun, Sunset, Code2, Key, RefreshCw, MessageSquareCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 interface DevStats {
   totalCommits: number;
   totalPRs: number;
+  totalReviews?: number;
   totalIssues: number;
   totalStars: number;
   followers: number;
@@ -583,6 +584,7 @@ function CompareDashboard() {
                     <StatBar val1={dev1.stats.totalStars} val2={dev2.stats.totalStars} label="Stars" icon={Star} />
                     <StatBar val1={dev1.stats.followers} val2={dev2.stats.followers} label="Followers" icon={Users} />
                     <StatBar val1={dev1.stats.totalPRs} val2={dev2.stats.totalPRs} label="Pull Requests" icon={GitPullRequest} />
+                    <StatBar val1={dev1.stats.totalReviews ?? 0} val2={dev2.stats.totalReviews ?? 0} label="Code Reviews" icon={MessageSquareCheck} />
                     <StatBar val1={dev1.stats.totalIssues} val2={dev2.stats.totalIssues} label="Issues" icon={CircleDot} />
                   </div>
                 </div>
@@ -707,12 +709,12 @@ function CompareDashboard() {
                         developers={[
                           {
                             name: dev1.username,
-                            values: [dev1.stats.totalCommits, dev1.stats.totalPRs, dev1.stats.totalIssues, dev1.stats.totalPRs, dev1.stats.totalStars, dev1.stats.streak],
+                            values: [dev1.stats.totalCommits, dev1.stats.totalPRs, dev1.stats.totalIssues, dev1.stats.totalReviews ?? 0, dev1.stats.totalStars, dev1.stats.streak],
                             color: { line: '#8b5cf6', area: 'rgba(139, 92, 246, 0.2)' }
                           },
                           {
                             name: dev2.username,
-                            values: [dev2.stats.totalCommits, dev2.stats.totalPRs, dev2.stats.totalIssues, dev2.stats.totalPRs, dev2.stats.totalStars, dev2.stats.streak],
+                            values: [dev2.stats.totalCommits, dev2.stats.totalPRs, dev2.stats.totalIssues, dev2.stats.totalReviews ?? 0, dev2.stats.totalStars, dev2.stats.streak],
                             color: { line: '#06b6d4', area: 'rgba(6, 182, 212, 0.2)' }
                           }
                         ]}

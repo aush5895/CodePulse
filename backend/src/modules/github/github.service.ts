@@ -375,6 +375,17 @@ export class GithubService {
       this.logger.warn(`Failed to fetch PR count for ${username}: ${e.message}`);
     }
 
+    let totalReviews = 0;
+    try {
+      const reviewsRes = await axios.get('https://api.github.com/search/issues', {
+        headers,
+        params: { q: `type:pr reviewed-by:${userData.login}`, per_page: 1 },
+      });
+      totalReviews = reviewsRes.data?.total_count ?? 0;
+    } catch (e: any) {
+      this.logger.warn(`Failed to fetch review count for ${username}: ${e.message}`);
+    }
+
     let totalIssues = 0;
     try {
       const issuesRes = await axios.get('https://api.github.com/search/issues', {
@@ -563,6 +574,7 @@ export class GithubService {
       stats: {
         totalCommits,
         totalPRs,
+        totalReviews,
         totalIssues,
         totalStars,
         followers: userData.followers || 0,
