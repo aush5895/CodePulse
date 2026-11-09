@@ -382,8 +382,8 @@ export class GithubService {
         params: { q: `type:pr reviewed-by:${userData.login}`, per_page: 1 },
       });
       totalReviews = reviewsRes.data?.total_count ?? 0;
-    } catch (e: any) {
-      this.logger.warn(`Failed to fetch review count for ${username}: ${e.message}`);
+    } catch (error) {
+      this.logger.warn(`Failed to fetch review count for ${username}: ${error instanceof Error ? error.message : String(error)}`);
     }
 
     let totalIssues = 0;
