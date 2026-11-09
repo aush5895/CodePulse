@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { AnimatedCounter } from "@/components/animations/animated-counter";
 import { CheckCircle2, User, BookOpen, Activity, Code, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface DevData {
   username: string;
@@ -200,12 +201,18 @@ function RoundDisplay({ round, p1, p2 }: { round: any, p1: DevData, p2: DevData 
 
       <div className="grid grid-cols-[1fr_auto_1fr] gap-4 mb-8 text-center items-end">
         <div>
-          <img src={p1.avatar} className="w-12 h-12 rounded-full mx-auto mb-2 border-2 border-border" />
+          <Avatar className="mx-auto mb-2 size-12 border-2 border-border" aria-hidden="true">
+            {p1.avatar && <AvatarImage src={p1.avatar} alt="" />}
+            <AvatarFallback>{p1.username.slice(0, 2).toUpperCase()}</AvatarFallback>
+          </Avatar>
           <div className="font-semibold">{p1.name}</div>
         </div>
         <div className="text-xl font-black text-muted-foreground pb-4">VS</div>
         <div>
-          <img src={p2.avatar} className="w-12 h-12 rounded-full mx-auto mb-2 border-2 border-border" />
+          <Avatar className="mx-auto mb-2 size-12 border-2 border-border" aria-hidden="true">
+            {p2.avatar && <AvatarImage src={p2.avatar} alt="" />}
+            <AvatarFallback>{p2.username.slice(0, 2).toUpperCase()}</AvatarFallback>
+          </Avatar>
           <div className="font-semibold">{p2.name}</div>
         </div>
       </div>
