@@ -8,6 +8,7 @@ import { Topbar } from "@/components/layout/topbar";
 import { CommandPalette } from "@/components/layout/command-palette";
 import { PageTransition } from "@/components/animations/page-transition";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { OfflineBanner } from "@/components/feedback/offline-banner";
 
 export default function DashboardLayout({
   children,
@@ -37,6 +38,8 @@ export default function DashboardLayout({
           <PageTransition>{children}</PageTransition>
         </main>
       </motion.div>
+
+      <OfflineBanner />
 
       {/* Command Palette (global overlay) */}
       <CommandPalette
